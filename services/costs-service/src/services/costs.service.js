@@ -58,9 +58,14 @@ export async function getReport(userid, year, month) {
     // Check if a cached report already exists
     const existingReport = await Report.findOne({ userid, year, month });
 
-    if (existingReport) {
-        // Return cached report if exists
+    if (existingReport && existingReport.costs && !Array.isArray(existingReport.costs)) {
+        // Return cached report only if it has the correct grouped object format
         return existingReport.costs;
+    }
+
+// Remove old cached reports that were saved in an invalid format
+    if (existingReport) {
+        await Report.deleteOne({ userid, year, month });
     }
 
     // Define date range for the requested month

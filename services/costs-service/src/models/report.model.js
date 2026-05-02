@@ -25,9 +25,9 @@ const reportSchema = new mongoose.Schema(
             required: true,
         },
 
-        // Costs grouped by categories
+        // Report costs grouped by category
         costs: {
-            type: Array,
+            type: mongoose.Schema.Types.Mixed,
             required: true,
         },
     },
@@ -37,7 +37,7 @@ const reportSchema = new mongoose.Schema(
     }
 );
 
-// Make sure each user has only one cached report per month and year
+// Prevent duplicate cached reports for the same user, year and month
 reportSchema.index({ userid: 1, year: 1, month: 1 }, { unique: true });
 
 // Create the model and connect it to the reports collection

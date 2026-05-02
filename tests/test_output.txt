@@ -1,0 +1,38 @@
+a=http://localhost:3001
+b=http://localhost:3002
+c=http://localhost:3003
+d=http://localhost:3004
+
+testing getting the about
+-------------------------
+url=http://localhost:3004/api/about/
+data.status_code=200
+b'[{"first_name":"Shahar","last_name":"Rushetzky"},{"first_name":"Itamar","last_name":"Shapira"}]'
+data.text=[{"first_name":"Shahar","last_name":"Rushetzky"},{"first_name":"Itamar","last_name":"Shapira"}]
+[{'first_name': 'Shahar', 'last_name': 'Rushetzky'}, {'first_name': 'Itamar', 'last_name': 'Shapira'}]
+
+
+testing getting the report - 1
+------------------------------
+url=http://localhost:3003/api/report/?id=123123&year=2026&month=5
+data.status_code=200
+b'{"userid":123123,"year":2026,"month":5,"costs":[{"food":[{"sum":10,"description":"milk","day":1},{"sum":5,"description":"bread","day":1},{"sum":8,"description":"milk 9","day":2},{"sum":8,"description":"milk 9","day":2},{"sum":8,"description":"milk 9","day":2}]},{"health":[]},{"housing":[]},{"sports":[{"sum":100,"description":"gym","day":1}]},{"education":[]}]}'
+data.text={"userid":123123,"year":2026,"month":5,"costs":[{"food":[{"sum":10,"description":"milk","day":1},{"sum":5,"description":"bread","day":1},{"sum":8,"description":"milk 9","day":2},{"sum":8,"description":"milk 9","day":2},{"sum":8,"description":"milk 9","day":2}]},{"health":[]},{"housing":[]},{"sports":[{"sum":100,"description":"gym","day":1}]},{"education":[]}]}
+
+
+
+testing adding cost item
+----------------------------------
+url=http://localhost:3003/api/add/
+data.status_code=201
+b'{"description":"milk 9","category":"food","userid":123123,"sum":8,"_id":"69f5d11c46b210cb2f60862a","created_at":"2026-05-02T10:25:32.973Z"}'
+
+
+testing getting the report - 2
+------------------------------
+url=http://localhost:3003/api/report/?id=123123&year=2026&month=1
+data.status_code=200
+b'{"userid":123123,"year":2026,"month":1,"costs":[{"food":[]},{"health":[]},{"housing":[]},{"sports":[]},{"education":[]}]}'
+data.text={"userid":123123,"year":2026,"month":1,"costs":[{"food":[]},{"health":[]},{"housing":[]},{"sports":[]},{"education":[]}]}
+
+
