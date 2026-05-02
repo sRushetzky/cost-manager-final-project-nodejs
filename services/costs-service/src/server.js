@@ -8,7 +8,7 @@ import app from "./app.js";
 import { connectMongo } from "./config/db.js";
 
 // Define the port for the users-service process
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3003;
 
 /*
 Start the server only after MongoDB connection is ready.
