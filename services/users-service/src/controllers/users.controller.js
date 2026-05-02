@@ -4,20 +4,30 @@ import { createUser, getUsers, getUserById } from "../services/users.service.js"
 // Import logger utility for endpoint access logging
 import { saveLog } from "../utils/logger.js";
 
+// Import validation functions
+import {
+    validateUserInput,
+    validateUserIdParam,
+} from "../utils/validators.js";
+
 /*
 Handle POST /api/add for adding a new user.
 */
 export async function addUser(req, res, next) {
     try {
-        // Log endpoint access as required by the project
+        // Validate input
+        const validationError = validateUserInput(req.body);
+
+        if (validationError) {
+            return res.status(400).json(validationError);
+        }
+
         await saveLog("info", "Endpoint accessed", {
             endpoint: "POST /api/add",
         });
 
-        // Create a new user using the request body
         const user = await createUser(req.body);
 
-        // Return the created user as JSON
         return res.status(201).json(user);
     } catch (err) {
         return next(err);
@@ -46,23 +56,28 @@ Handle GET /api/users/:id for retrieving a specific user and total costs.
 */
 export async function getUserDetails(req, res, next) {
     try {
-        // Extract id from URL params
-        const userId = Number(req.params.id);
+        // Validate id param
+        const result = validateUserIdParam(req.params.id);
 
-        // Log endpoint access
+        if (result.error) {
+            return res.status(400).json(result.error);
+        }
+
+        const userId = result.value;
+
         await saveLog("info", "Endpoint accessed", {
             endpoint: `GET /api/users/${userId}`,
         });
 
-        // Fetch user details + total
         const user = await getUserById(userId);
 
-        // If user not found → 404
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({
+                id: "ERR_USER_NOT_FOUND",
+                message: "User not found",
+            });
         }
 
-        // Return the user data
         return res.json(user);
     } catch (err) {
         return next(err);

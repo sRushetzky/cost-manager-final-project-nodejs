@@ -48,6 +48,13 @@ Generate a monthly report for a user.
 Implements the Computed Design Pattern.
 */
 export async function getReport(userid, year, month) {
+    // Check if the user exists before generating the report
+    const user = await User.findOne({ id: userid });
+
+    // If user does not exist, reject the request
+    if (!user) {
+        throw createAppError("ERR_USER_NOT_FOUND", "User not found", 404);
+    }
     // Check if a cached report already exists
     const existingReport = await Report.findOne({ userid, year, month });
 

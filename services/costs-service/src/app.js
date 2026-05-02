@@ -7,6 +7,9 @@ import { requestLogger } from "./middlewares/request-logger.js";
 // Import routes for handling cost-related endpoints
 import costsRoutes from "./routes/costs.routes.js";
 
+// Import global error handler
+import { errorHandler } from "./middlewares/errorHandler.js";
+
 // Create the Express application instance
 const app = express();
 
@@ -24,6 +27,9 @@ app.get("/", (req, res) => {
     // Return a simple JSON response
     res.json({ message: "costs-service is running" });
 });
+
+// Handle errors in one central place
+app.use(errorHandler);
 
 // Export app for server startup
 export default app;
