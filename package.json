@@ -13,7 +13,8 @@
     "start:users": "cd services/users-service && npm start",
     "start:costs": "cd services/costs-service && npm start",
     "start:admin": "cd services/admin-service && npm start",
-    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "install:all": "npm install && cd services/logs-service && npm install && cd ../users-service && npm install && cd ../costs-service && npm install && cd ../admin-service && npm install && cd ../../"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
