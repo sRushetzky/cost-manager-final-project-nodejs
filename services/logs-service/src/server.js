@@ -8,7 +8,11 @@ import app from "./app.js";
 import { connectMongo } from "./config/db.js";
 
 // Define port
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+    console.log(`logs-service running on port ${PORT}`);
+});
 
 /*
 Start the server after connecting to MongoDB
