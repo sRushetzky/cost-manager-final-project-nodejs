@@ -6,6 +6,11 @@ Middleware that logs every incoming HTTP request
 and its response status code.
 */
 export function requestLogger(req, res, next) {
+    // Skip database logging during unit tests
+    if (process.env.NODE_ENV === "test") {
+        return next();
+    }
+
     // Log when the request is received
     saveLog("info", "HTTP request received", {
         method: req.method,

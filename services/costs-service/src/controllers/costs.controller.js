@@ -24,9 +24,11 @@ export async function addCost(req, res, next) {
         }
 
         // Log endpoint access
-        await saveLog("info", "Endpoint accessed", {
-            endpoint: "POST /api/add",
-        });
+        if (process.env.NODE_ENV !== "test") {
+            await saveLog("info", "Endpoint accessed", {
+                endpoint: "POST /api/add",
+            });
+        }
 
         // Create cost item
         const cost = await createCost(req.body);
@@ -56,12 +58,14 @@ export async function getMonthlyReport(req, res, next) {
         const { userid, year, month } = result.value;
 
         // Log endpoint access
-        await saveLog("info", "Endpoint accessed", {
-            endpoint: "GET /api/report",
-            userid,
-            year,
-            month,
-        });
+        if (process.env.NODE_ENV !== "test") {
+            await saveLog("info", "Endpoint accessed", {
+                endpoint: "GET /api/report",
+                userid,
+                year,
+                month,
+            });
+        }
 
         // Generate the monthly report
         const report = await getReport(userid, year, month);

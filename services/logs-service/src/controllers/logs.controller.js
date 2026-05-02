@@ -8,9 +8,11 @@ import { saveLog } from "../utils/logger.js";
 export async function getAllLogs(req, res, next) {
     try {
         // Log endpoint access as required by the project
-        await saveLog("info", "Endpoint accessed", {
-            endpoint: "GET /api/logs",
-        });
+        if (process.env.NODE_ENV !== "test") {
+            await saveLog("info", "Endpoint accessed", {
+                endpoint: "GET /api/logs",
+            });
+        }
 
         // Get all logs from the service layer
         const logs = await getLogs();

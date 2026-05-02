@@ -14,9 +14,12 @@ According to requirements, only first_name and last_name are allowed.
 router.get("/about", async (req, res, next) => {
     try {
         // Log endpoint access as required by the project
-        await saveLog("info", "Endpoint accessed", {
-            endpoint: "GET /api/about",
-        });
+        // Log endpoint access only outside unit tests
+        if (process.env.NODE_ENV !== "test") {
+            await saveLog("info", "Endpoint accessed", {
+                endpoint: "GET /api/about",
+            });
+        }
 
         // Return team members without storing them in the database
         return res.json([

@@ -1,6 +1,7 @@
 {
   "name": "cost-manager-final-project",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -8,17 +9,18 @@
   },
   "scripts": {
     "start:all": "concurrently -n logs,users,costs,admin -c blue,green,yellow,magenta \"npm run start:logs\" \"npm run start:users\" \"npm run start:costs\" \"npm run start:admin\"",
-
     "start:logs": "cd services/logs-service && npm start",
     "start:users": "cd services/users-service && npm start",
     "start:costs": "cd services/costs-service && npm start",
-    "start:admin": "cd services/admin-service && npm start"
+    "start:admin": "cd services/admin-service && npm start",
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2",
+    "jest": "^30.3.0",
+    "mongoose": "^9.6.1",
+    "supertest": "^7.2.2"
   }
 }

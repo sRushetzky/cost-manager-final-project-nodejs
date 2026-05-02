@@ -22,9 +22,11 @@ export async function addUser(req, res, next) {
             return res.status(400).json(validationError);
         }
 
-        await saveLog("info", "Endpoint accessed", {
-            endpoint: "POST /api/add",
-        });
+        if (process.env.NODE_ENV !== "test") {
+            await saveLog("info", "Endpoint accessed", {
+                endpoint: "POST /api/add",
+            });
+        }
 
         const user = await createUser(req.body);
 
@@ -39,9 +41,11 @@ Handle GET /api/users for listing all users.
 */
 export async function getAllUsers(req, res, next) {
     try {
-        await saveLog("info", "Endpoint accessed", {
-            endpoint: "GET /api/users",
-        });
+        if (process.env.NODE_ENV !== "test") {
+            await saveLog("info", "Endpoint accessed", {
+                endpoint: "GET /api/users",
+            });
+        }
 
         const users = await getUsers();
 
@@ -65,9 +69,11 @@ export async function getUserDetails(req, res, next) {
 
         const userId = result.value;
 
-        await saveLog("info", "Endpoint accessed", {
-            endpoint: `GET /api/users/${userId}`,
-        });
+        if (process.env.NODE_ENV !== "test") {
+            await saveLog("info", "Endpoint accessed", {
+                endpoint: `GET /api/users/${userId}`,
+            });
+        }
 
         const user = await getUserById(userId);
 
