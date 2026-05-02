@@ -16,13 +16,13 @@ filename = input("filename=")
 
 
 
-a = "http://localhost:3001"
+a = "https://cost-manager-logs-service-zaj4.onrender.com"
 
-b = "http://localhost:3002"
+b = "https://cost-manager-users-service-gnz4.onrender.com"
 
-c = "http://localhost:3003"
+c = "https://cost-manager-costs-service-mju2.onrender.com"
 
-d = "http://localhost:3004"
+d = "https://cost-manager-admin-service-ceoz.onrender.com"
 
 
 output = open(filename,"w")

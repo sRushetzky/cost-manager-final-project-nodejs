@@ -6,16 +6,16 @@ import time
 filename = input("filename=")
 
 # Logs service
-a = "http://localhost:3001"
+a = "https://cost-manager-logs-service-zaj4.onrender.com"
 
 # Users service
-b = "http://localhost:3002"
+b = "https://cost-manager-users-service-gnz4.onrender.com"
 
 # Costs service
-c = "http://localhost:3003"
+c = "https://cost-manager-costs-service-mju2.onrender.com"
 
 # Admin service
-d = "http://localhost:3004"
+d = "https://cost-manager-admin-service-ceoz.onrender.com"
 
 
 output = open(filename, "w", encoding="utf-8")

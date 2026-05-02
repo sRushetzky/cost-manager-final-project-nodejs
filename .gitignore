@@ -3,3 +3,7 @@ node_modules/
 .env
 **/.env
 .idea/
+test_output.txt
+extended_output.txt
+*_output.txt
+tests/*_output.txt
